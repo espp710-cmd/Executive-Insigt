@@ -249,7 +249,7 @@ export const defaultQuestions = [
 export async function loadQuestions(): Promise<any[]> {
   if (useKv) {
     const client = await getKv();
-    const data = await client.get<any[]>("questions");
+    const data = (await client.get("questions")) as any[];
     if (!data || data.length === 0) {
       await client.set("questions", defaultQuestions);
       return defaultQuestions;
@@ -296,7 +296,7 @@ export async function saveQuestions(questions: any[]) {
 export async function loadLoginLogs(): Promise<any[]> {
   if (useKv) {
     const client = await getKv();
-    const data = await client.get<any[]>("login_logs");
+    const data = (await client.get("login_logs")) as any[];
     return data || [];
   }
   return readJsonFile<any[]>(LOGIN_LOGS_FILE_PATH, []);
@@ -332,7 +332,7 @@ export async function clearLoginLogs(): Promise<boolean> {
 export async function loadFeedbackLogs(): Promise<any[]> {
   if (useKv) {
     const client = await getKv();
-    const data = await client.get<any[]>("feedback_logs");
+    const data = (await client.get("feedback_logs")) as any[];
     return data || [];
   }
   return readJsonFile<any[]>(FEEDBACK_LOGS_FILE_PATH, []);
