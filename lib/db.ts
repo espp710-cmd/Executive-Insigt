@@ -8,12 +8,14 @@ import path from "path";
 // invocations and deployments. Locally, we fall back to simple JSON files
 // on disk (same behavior as before). Note: the old "Vercel KV" product
 // (and its KV_REST_API_URL var) has been discontinued by Vercel.
-const useKv = !!process.env.UPSTASH_REDIS_REST_URL;
+const const useKv = !!(process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL);_REDIS_REST_URL;
 
 let kvClientPromise: Promise<any> | null = null;
 async function getKv() {
   if (!kvClientPromise) {
-    kvClientPromise = import("@upstash/redis").then((mod) => mod.Redis.fromEnv());
+    const url = process.env.UPSTASH_REDIS_REST_URL || process.env.KV_REST_API_URL || "";
+    const token = process.env.UPSTASH_REDIS_REST_TOKEN || process.env.KV_REST_API_TOKEN || "";
+    kvClientPromise = import("@upstash/redis").then((mod) => new mod.Redis({ url, token }));
   }
   return kvClientPromise;
 }
