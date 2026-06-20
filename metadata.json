@@ -1,0 +1,6 @@
+{
+  "name": "Website interview Berbasis AI",
+  "description": "Platform simulasi interview berbasis kecerdasan buatan, dirancang untuk melatih draf jawaban dan mengukur kesiapan wawancara kerja profesional.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
